@@ -27,6 +27,7 @@ export default function LoginPage({ isUser, setIsUser }: AuthProp) {
       await signInWithEmailAndPassword(auth, email, password);
       setIsUser(true);
       localStorage.setItem('user', true);
+
       router.push('/');
     } catch (err) {
       alert('email or password was incorrect');
