@@ -6,6 +6,7 @@ export default function ApiState(props: any) {
   const [userName, setUserName] = useState<string>('');
   const data = { isUser, setIsUser, userName, setUserName };
 
+  localStorage.setItem('userName', userName);
   return (
     <apiContext.Provider value={data}>{props.children}</apiContext.Provider>
   );

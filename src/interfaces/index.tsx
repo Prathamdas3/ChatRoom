@@ -6,3 +6,12 @@ interface AuthProp {
   isUser: boolean;
   setIsUser: any;
 }
+
+// interface Message {
+//   text: string;
+//   createdAt: () => void;
+// }
+
+interface ChatProp {
+  code: string;
+}

@@ -15,7 +15,7 @@ export default function Home() {
           <div
             onClick={() =>
               data.isUser || localStorage.getItem('user')
-                ? router.push('/chatroom')
+                ? router.push('/chat')
                 : router.push('/authPage')
             }
           >
