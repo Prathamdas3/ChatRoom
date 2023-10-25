@@ -7,17 +7,30 @@ import {
   query,
   onSnapshot,
   where,
+  orderBy,
 } from 'firebase/firestore';
 import { auth, db } from '@/config/firebase';
 export default function Page({ code }: ChatProp) {
   const [newMessage, setNewMessage] = useState<string>('');
+  const [message, setMessage] = useState([]);
   const messageRef = collection(db, 'messages');
 
   useEffect(() => {
-    const queryMessages = query(messageRef, where('room', '===', code));
-    onSnapshot(queryMessages, (snapshot) => {
-      console.log('new message');
+    const queryMessages = query(
+      messageRef,
+      where('room', '==', code),
+      orderBy('createdAt')
+    );
+    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
+      let messages = [];
+      snapshot.forEach((doc) => {
+        messages.push({ ...doc.data(), id: doc.id });
+      });
+
+      setMessage(messages);
     });
+
+    return () => unsubscribe();
   }, [messageRef, code]);
 
   const handleSubmit = async (e: any) => {
@@ -33,16 +46,30 @@ export default function Page({ code }: ChatProp) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="flex  gap-2">
+    <div className="flex flex-col justify-between">
+      <div className="text-center font-bold bg-ghost p-4 text-3xl order-1">
+        <h1>Welcome to: {code}</h1>
+      </div>
+      <div className="order-2 h-[75vh] my-4 border border-gray-700 rounded-lg p-4">
+        {message.map((message) => (
+          <h1 key={message.id} className="text-lg text-gray-300">
+            {message.user}
+            <span className="text-sm text-white"> {message.text} </span>
+          </h1>
+        ))}
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex gap-4 justify-between order-3 "
+      >
         <input
           type="text"
           placeholder="Type here"
-          className="input input-ghost w-full max-w-xs"
+          className="input input-ghost w-[90%]  "
           onChange={(e) => setNewMessage(e.target.value)}
           value={newMessage}
         />
-        <button type="submit" className="btn btn-success">
+        <button type="submit" className="btn btn-success w-[10%]">
           Send
         </button>
       </form>
