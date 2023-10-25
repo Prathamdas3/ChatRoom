@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, createContext } from 'react';
-export const apiContext = createContext({});
+export const apiContext = createContext<AuthProp | undefined>(undefined);
 export default function ApiState(props: any) {
   const [isUser, setIsUser] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>('');
