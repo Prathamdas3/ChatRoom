@@ -4,7 +4,7 @@ interface Card {
 }
 interface AuthProp {
   isUser: boolean;
-  setIsUser: any;
+  setIsUser: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // interface Message {

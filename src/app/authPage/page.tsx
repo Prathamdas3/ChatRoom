@@ -28,9 +28,9 @@ const AuthPage = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleAuth);
-      authDetails.setIsUser(true);
+      authDetails && authDetails.setIsUser(true);
 
-      authDetails.setUserName(auth.currentUser.displayName);
+      authDetails && authDetails.setUserName(auth.currentUser.displayName);
       localStorage.setItem('user', true);
       router.push('/');
     } catch (err) {
@@ -119,8 +119,8 @@ const AuthPage = () => {
               </div>
               {change ? (
                 <LoginPage
-                  setIsUser={authDetails.setIsUser}
-                  isUser={authDetails.isUser}
+                  setIsUser={authDetails && authDetails.setIsUser}
+                  isUser={authDetails && authDetails.isUser}
                 />
               ) : (
                 <SignUpPage
