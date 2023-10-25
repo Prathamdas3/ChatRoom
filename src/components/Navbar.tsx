@@ -16,6 +16,7 @@ export default function Page() {
       await signOut(auth);
 
       localStorage.removeItem('user');
+      localStorage.removeItem('userName');
       router.push('/');
     } catch (err) {
       console.log(err);
@@ -27,7 +28,7 @@ export default function Page() {
         <h2
           className=" normal-case text-2xl font-bold"
           onClick={() =>
-            data.isUser || localStorage.getItem('user')
+            localStorage.getItem('user') || data.isUser
               ? router.push('/')
               : router.push('/authPage')
           }
@@ -42,7 +43,7 @@ export default function Page() {
               <Image src={Profile} alt="profile" width={20} height={20} />
             </div>
           </label>
-          {data.isUser || localStorage.getItem('user') ? (
+          {localStorage.getItem('user') || data.isUser ? (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
