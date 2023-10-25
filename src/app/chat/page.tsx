@@ -5,18 +5,20 @@ export default function Page() {
   const [room, setRoom] = useState(null);
   const roomInputRef = useRef(null);
 
+  const handleChat = (e: any) => {
+    e.preventDefault();
+    document.getElementById('my_modal_1').showModal();
+  };
+
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center min-h-screen py-2 gap-4">
+    <div>
       {room ? (
-        <div>
+        <div className="container mx-auto ">
           <Chat code={room} />
         </div>
       ) : (
-        <div>
-          <button
-            className="btn"
-            onClick={() => document.getElementById('my_modal_1').showModal()}
-          >
+        <div className="container mx-auto flex flex-col items-center justify-center min-h-screen py-2 gap-4">
+          <button className="btn" onClick={handleChat}>
             Join Chat
           </button>
           <dialog id="my_modal_1" className="modal">
