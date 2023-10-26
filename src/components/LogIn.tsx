@@ -26,7 +26,7 @@ export default function LoginPage({ isUser, setIsUser }: AuthProp) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setIsUser && setIsUser(true);
-      localStorage.setItem('user', 'true');
+      // localStorage.setItem('user', 'true');
 
       router.push('/');
     } catch (err) {

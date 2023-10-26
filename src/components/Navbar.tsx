@@ -15,8 +15,8 @@ export default function Page() {
     try {
       await signOut(auth);
 
-      localStorage.removeItem('user');
-      localStorage.removeItem('userName');
+      // localStorage.removeItem('user');
+      // localStorage.removeItem('userName');
       router.push('/');
     } catch (err) {
       console.log(err);
@@ -28,10 +28,7 @@ export default function Page() {
         <h2
           className=" normal-case text-2xl font-bold"
           onClick={() =>
-            (localStorage.getItem('user') === 'true' ? true : false) ||
-            (isUser && isUser)
-              ? router.push('/')
-              : router.push('/authPage')
+            isUser && isUser ? router.push('/') : router.push('/authPage')
           }
         >
           ChatRoom
@@ -44,8 +41,7 @@ export default function Page() {
               <Image src={Profile} alt="profile" width={20} height={20} />
             </div>
           </label>
-          {(localStorage.getItem('user') === 'true' ? true : false) ||
-          (isUser && isUser) ? (
+          {isUser && isUser ? (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
@@ -77,3 +73,4 @@ export default function Page() {
     </div>
   );
 }
+// (localStorage.getItem('user') === 'true' ? true : false) ||

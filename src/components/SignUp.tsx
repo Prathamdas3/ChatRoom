@@ -31,7 +31,7 @@ export default function SignUpPage({ isUser, setIsUser }: AuthProp) {
         try {
           await createUserWithEmailAndPassword(auth, email, password);
           setIsUser && setIsUser(true);
-          localStorage.setItem('user', 'true');
+          // localStorage.setItem('user', 'true');
           router.push('/');
         } catch (err) {
           alert('Email is already in use');
