@@ -1,22 +1,22 @@
 'use client';
-import React, { useContext } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Profile from '@/assets/images/profile.jpg';
 import { auth } from '@/config/firebase';
 import { signOut } from 'firebase/auth';
-import { apiContext } from '@/context/DataContext';
+import { useApiContextProvider } from '@/context/DataContext';
 import { useRouter } from 'next/navigation';
 
 export default function Page() {
-  const data = useContext(apiContext);
+  const { isUser } = useApiContextProvider();
   const router = useRouter();
 
   const logOut = async () => {
     try {
       await signOut(auth);
 
-      localStorage.removeItem('user');
-      localStorage.removeItem('userName');
+      // localStorage.removeItem('user');
+      // localStorage.removeItem('userName');
       router.push('/');
     } catch (err) {
       console.log(err);
@@ -28,9 +28,7 @@ export default function Page() {
         <h2
           className=" normal-case text-2xl font-bold"
           onClick={() =>
-            localStorage.getItem('user') || data.isUser
-              ? router.push('/')
-              : router.push('/authPage')
+            isUser && isUser ? router.push('/') : router.push('/authPage')
           }
         >
           ChatRoom
@@ -43,7 +41,7 @@ export default function Page() {
               <Image src={Profile} alt="profile" width={20} height={20} />
             </div>
           </label>
-          {localStorage.getItem('user') || data.isUser ? (
+          {isUser && isUser ? (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
@@ -75,3 +73,4 @@ export default function Page() {
     </div>
   );
 }
+// (localStorage.getItem('user') === 'true' ? true : false) ||

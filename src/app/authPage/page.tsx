@@ -1,8 +1,8 @@
 'use client';
 import { auth, googleAuth } from '@/config/firebase';
 import { signInWithPopup } from 'firebase/auth';
-import { useState, useContext } from 'react';
-import { apiContext } from '@/context/DataContext';
+import { useState } from 'react';
+import { useApiContextProvider } from '@/context/DataContext';
 import SignUpPage from '@/components/SignUp';
 import LoginPage from '@/components/LogIn';
 import { useRouter } from 'next/navigation';
@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AuthPage = () => {
-  let authDetails = useContext(apiContext);
+  const { setIsUser, setUserName, isUser } = useApiContextProvider();
   const [change, setChange] = useState<boolean>(true);
   const router = useRouter();
   const notify = () => {
@@ -28,10 +28,11 @@ const AuthPage = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleAuth);
-      authDetails && authDetails.setIsUser(true);
+      setIsUser && setIsUser(true);
 
-      authDetails && authDetails.setUserName(auth.currentUser.displayName);
-      localStorage.setItem('user', true);
+      const username: string | null | undefined = auth.currentUser?.displayName;
+      setUserName && setUserName(username);
+      // localStorage.setItem('user', 'true');
       router.push('/');
     } catch (err) {
       console.log(err);
@@ -118,15 +119,9 @@ const AuthPage = () => {
                 Or
               </div>
               {change ? (
-                <LoginPage
-                  setIsUser={authDetails && authDetails.setIsUser}
-                  isUser={authDetails && authDetails.isUser}
-                />
+                <LoginPage setIsUser={setIsUser} isUser={isUser} />
               ) : (
-                <SignUpPage
-                  setIsUser={authDetails.setIsUser}
-                  isUser={authDetails.isUser}
-                />
+                <SignUpPage setIsUser={setIsUser} isUser={isUser} />
               )}
             </div>
           </div>
