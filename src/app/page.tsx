@@ -1,11 +1,11 @@
 'use client';
-import React, { useContext } from 'react';
+import React from 'react';
 import Card from '@/components/Cards';
-import { apiContext } from '@/context/DataContext';
+import { useApiContextProvider } from '@/context/DataContext';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const data = useContext(apiContext);
+  const { isUser } = useApiContextProvider();
   const router = useRouter();
 
   return (
@@ -14,7 +14,8 @@ export default function Home() {
         <div className="flex gap-3">
           <div
             onClick={() =>
-              data.isUser || localStorage.getItem('user')
+              (isUser && isUser) ||
+              (localStorage.getItem('user') === 'true' ? true : false)
                 ? router.push('/chat')
                 : router.push('/authPage')
             }
@@ -26,7 +27,8 @@ export default function Home() {
           </div>
           <div
             onClick={() =>
-              data.isUser || localStorage.getItem('user')
+              (isUser && isUser) ||
+              (localStorage.getItem('user') === 'true' ? true : false)
                 ? router.push('/datastore')
                 : router.push('/authPage')
             }
