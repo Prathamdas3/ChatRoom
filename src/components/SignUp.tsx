@@ -1,14 +1,14 @@
 'use client';
 import { auth } from '@/config/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useState, useContext } from 'react';
-import { apiContext } from '@/context/DataContext';
+import { useState } from 'react';
+import { useApiContextProvider } from '@/context/DataContext';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUpPage({ isUser, setIsUser }: AuthProp) {
-  const data = useContext(apiContext);
+  const { setUserName } = useApiContextProvider();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -30,8 +30,8 @@ export default function SignUpPage({ isUser, setIsUser }: AuthProp) {
       if (password === confirmPassword) {
         try {
           await createUserWithEmailAndPassword(auth, email, password);
-          setIsUser(true);
-          localStorage.setItem('user', true);
+          setIsUser && setIsUser(true);
+          localStorage.setItem('user', 'true');
           router.push('/');
         } catch (err) {
           alert('Email is already in use');
@@ -62,7 +62,7 @@ export default function SignUpPage({ isUser, setIsUser }: AuthProp) {
               type="text"
               name="username"
               className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-              onChange={(e) => data.setUserName(e.target.value)}
+              onChange={(e) => setUserName && setUserName(e.target.value)}
               required
               // aria-describedby="email-error"
             />

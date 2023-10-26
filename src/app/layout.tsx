@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
-import ApiState from '@/context/DataContext';
+import { ApiProvider } from '@/context/DataContext';
 import Navbar from '../components/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
-        <ApiState>
+        <ApiProvider>
           <Navbar />
           {children}
-        </ApiState>
+        </ApiProvider>
       </body>
     </html>
   );

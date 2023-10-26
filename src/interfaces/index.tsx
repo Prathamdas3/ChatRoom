@@ -3,8 +3,10 @@ interface Card {
   des: string;
 }
 interface AuthProp {
-  isUser: boolean;
-  setIsUser: React.Dispatch<React.SetStateAction<boolean>>;
+  isUser?: boolean;
+  setIsUser?: React.Dispatch<React.SetStateAction<boolean>>;
+  userName?: string;
+  setUserName?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // interface Message {
