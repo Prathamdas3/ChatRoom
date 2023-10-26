@@ -14,10 +14,7 @@ export default function Home() {
         <div className="flex gap-3">
           <div
             onClick={() =>
-              (isUser && isUser) ||
-              (localStorage.getItem('user') === 'true' ? true : false)
-                ? router.push('/chat')
-                : router.push('/authPage')
+              isUser && isUser ? router.push('/chat') : router.push('/authPage')
             }
           >
             <Card
@@ -27,8 +24,7 @@ export default function Home() {
           </div>
           <div
             onClick={() =>
-              (isUser && isUser) ||
-              (localStorage.getItem('user') === 'true' ? true : false)
+              isUser && isUser
                 ? router.push('/datastore')
                 : router.push('/authPage')
             }
@@ -43,3 +39,4 @@ export default function Home() {
     </>
   );
 }
+// (localStorage.getItem('user') === 'true' ? true : false)

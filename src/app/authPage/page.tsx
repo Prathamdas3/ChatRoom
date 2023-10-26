@@ -32,7 +32,7 @@ const AuthPage = () => {
 
       const username: string | null | undefined = auth.currentUser?.displayName;
       setUserName && setUserName(username);
-      localStorage.setItem('user', 'true');
+      // localStorage.setItem('user', 'true');
       router.push('/');
     } catch (err) {
       console.log(err);
