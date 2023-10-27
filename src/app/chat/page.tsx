@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Chat from '@/components/Chat';
 export default function Page() {
   const [room, setRoom] = useState<string | null>(null);
@@ -12,7 +12,14 @@ export default function Page() {
     }
     setIsModalOpen(false);
   };
-
+  const modalChange = () => {
+    if (!isModalOpen) {
+      setIsModalOpen(true);
+    } else {
+      setIsModalOpen(false);
+    }
+  };
+  console.log(isModalOpen);
   return (
     <div>
       {room ? (
@@ -21,13 +28,15 @@ export default function Page() {
         </div>
       ) : (
         <div className="container mx-auto flex flex-col items-center justify-center min-h-screen py-2 gap-4">
-          <button className="btn" onClick={() => setIsModalOpen(true)}>
-            Join Chat
-          </button>
+          {!isModalOpen && (
+            <button className="btn" onClick={modalChange}>
+              Join Chat
+            </button>
+          )}
           {isModalOpen && (
-            <div id="my_modal_1" className="modal">
-              <div className="modal-box flex flex-col gap-2">
-                <h3 className="font-bold text-lg">Join chatroom</h3>
+            <div className="">
+              <div className=" flex flex-col gap-4">
+                <h3 className="font-bold text-2xl">Join chatroom</h3>
                 <label className="mx-2 text-sm" htmlFor="room_id">
                   Enter room code
                 </label>
@@ -39,18 +48,18 @@ export default function Page() {
                   ref={roomInputRef}
                 />
 
-                <div className="modal-action">
-                  <form method="dialog " className="flex gap-2">
+                <div className="">
+                  <form className="flex gap-2 ">
                     <button
                       type="submit"
-                      className="btn btn-error"
-                      onClick={() => setIsModalOpen(false)}
+                      className="btn btn-error w-[50%]"
+                      onClick={modalChange}
                     >
                       Close
                     </button>
                     <button
                       type="submit"
-                      className="btn btn-success"
+                      className="btn btn-success w-[50%]"
                       onClick={handleJoinRoom}
                     >
                       Join
