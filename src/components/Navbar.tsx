@@ -46,12 +46,12 @@ export default function Page() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
+              {/* <li>
                 <a className="justify-between">Profile</a>
               </li>
               <li>
                 <a>Settings</a>
-              </li>
+              </li> */}
               <li>
                 <button onClick={logOut}>Logout</button>
               </li>
