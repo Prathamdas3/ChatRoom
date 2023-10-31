@@ -22,7 +22,7 @@ export default function Home() {
               des="Join any chat group with a single key "
             />
           </div>
-          <div
+          {/* <div
             onClick={() =>
               isUser && isUser
                 ? router.push('/datastore')
@@ -33,7 +33,7 @@ export default function Home() {
               title="Store Data"
               des="Store your data here with build in data store"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </>
